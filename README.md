@@ -31,11 +31,23 @@ This project provides a machine learning solution for credit scoring, focusing o
 
 Both frameworks allow integration with web or mobile applications for real-time credit scoring.
 
+## Workflow
+
+- **1. Load the dataset** : The dataset is loaded from a CSV file containing applicant data.
+- **2. Preprocess and clean the data**: The data is cleaned and transformed to ensure it is suitable for model training.
+- **3. Feature engineering for RFM**: Features are created based on Recency, Frequency, and Monetary value to enhance model performance.
+- **4. Train the model**: The model is trained using the processed data, focusing on minimizing false negatives.
+- **5. Evaluate the model**: The model is evaluated using precision and recall metrics to ensure it meets business requirements.
+- **6. Deploy the model**: The trained model is deployed as a REST API using Flask or FastAPI, allowing for easy integration with applications.
+- **7. Hyperparameter tuning**: The model is fine-tuned to optimize performance, focusing on reducing false negatives while maintaining a balance with precision and recall.
+- **8. Model inference**: The deployed API can be used to classify new applicants based on their data, providing real-time credit scoring.
+- **9. Model evaluation**: Continuous monitoring and evaluation of the model's performance in production to ensure it remains effective and accurate over time.
+- **10. Deployment**: The model is deployed in a production environment, ensuring it is accessible for real-time predictions.
+- **11. Explainability**: Use SHAP or LIME to interpret model decisions.
+
 ## Usage
 
-1. Train the model using provided scripts.
-2. Start the API server (Flask or FastAPI).
-3. Send applicant data to the API endpoint to receive a credit score classification.
+1. 
+2.
+3. 
 
----
-# Credit-Scoring-Model-Production
