@@ -20,6 +20,7 @@ pip install -r requirements.txt
 
 ## Project Structure
 credit_scoring_project/
+``` markdown
 ├── app/                          # Flask Web Application for API deployment
 │   ├── app.py                    # Main Flask application file
 |   ├── api_test.py               # Test script for API endpoints
@@ -53,6 +54,7 @@ credit_scoring_project/
 ├── .gitignore                    # Specifies files/directories to be ignored by Git
 ├── requirements.txt              # List of Python dependencies
 └── README.md                     # Project README (this file)
+```
 
 ## How to Train the Model Locally
 
