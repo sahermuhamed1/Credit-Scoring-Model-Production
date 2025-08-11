@@ -1,0 +1,177 @@
+<!-- app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Credit Score</h1>
+        <form id="predictionForm">
+            <div class="form-group">
+                <label for="Customer_ID">Customer ID (e.g., C00001):</label>
+                <input type="text" id="Customer_ID" name="Customer_ID" value="C00001" required>
+            </div>
+            <div class="form-group">
+                <label for="Name">Name:</label>
+                <input type="text" id="Name" name="Name" value="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="Month">Month:</label>
+                <select id="Month" name="Month">
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Age">Age:</label>
+                <input type="number" id="Age" name="Age" value="30" min="18" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="Occupation">Occupation:</label>
+                <input type="text" id="Occupation" name="Occupation" value="Software Engineer">
+            </div>
+            <div class="form-group">
+                <label for="Annual_Income">Annual Income:</label>
+                <input type="number" id="Annual_Income" name="Annual_Income" value="60000" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Monthly_Inhand_Salary">Monthly Inhand Salary:</label>
+                <input type="number" id="Monthly_Inhand_Salary" name="Monthly_Inhand_Salary" value="5000" step="any">
+            </div>
+            <div class="form-group">
+                <label for="Num_Bank_Accounts">Number of Bank Accounts:</label>
+                <input type="number" id="Num_Bank_Accounts" name="Num_Bank_Accounts" value="2" min="1" max="10">
+            </div>
+            <div class="form-group">
+                <label for="Num_Credit_Card">Number of Credit Cards:</label>
+                <input type="number" id="Num_Credit_Card" name="Num_Credit_Card" value="3" min="0" max="10">
+            </div>
+            <div class="form-group">
+                <label for="Interest_Rate">Interest Rate:</label>
+                <input type="number" id="Interest_Rate" name="Interest_Rate" value="15.5" step="any">
+            </div>
+            <div class="form-group">
+                <label for="Num_of_Loan">Number of Loans:</label>
+                <input type="number" id="Num_of_Loan" name="Num_of_Loan" value="2" min="0" max="20">
+            </div>
+            <div class="form-group">
+                <label for="Type_of_Loan">Type of Loan:</label>
+                <input type="text" id="Type_of_Loan" name="Type_of_Loan" value="Personal Loan">
+            </div>
+            <div class="form-group">
+                <label for="Delay_from_due_date">Delay from Due Date (days):</label>
+                <input type="number" id="Delay_from_due_date" name="Delay_from_due_date" value="5" min="0">
+            </div>
+            <div class="form-group">
+                <label for="Num_of_Delayed_Payment">Number of Delayed Payments:</label>
+                <input type="number" id="Num_of_Delayed_Payment" name="Num_of_Delayed_Payment" value="1" min="0">
+            </div>
+            <div class="form-group">
+                <label for="Changed_Credit_Limit">Changed Credit Limit (%):</label>
+                <input type="number" id="Changed_Credit_Limit" name="Changed_Credit_Limit" value="10.2" step="any">
+            </div>
+            <div class="form-group">
+                <label for="Outstanding_Debt">Outstanding Debt:</label>
+                <input type="number" id="Outstanding_Debt" name="Outstanding_Debt" value="7500" step="any">
+            </div>
+            <div class="form-group">
+                <label for="Credit_Utilization_Ratio">Credit Utilization Ratio:</label>
+                <input type="number" id="Credit_Utilization_Ratio" name="Credit_Utilization_Ratio" value="0.45" step="any" min="0" max="1">
+            </div>
+            <div class="form-group">
+                <label for="Credit_History_Age">Credit History Age (e.g., 10 Years and 2 Months):</label>
+                <input type="text" id="Credit_History_Age" name="Credit_History_Age" value="5 Years and 5 Months">
+            </div>
+            <div class="form-group">
+                <label for="Payment_of_Min_Amount">Payment of Minimum Amount:</label>
+                <select id="Payment_of_Min_Amount" name="Payment_of_Min_Amount">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Monthly_EMI">Monthly EMI:</label>
+                <input type="number" id="Monthly_EMI" name="Monthly_EMI" value="300" step="any">
+            </div>
+            <div class="form-group">
+                <label for="Amount_invested_monthly">Amount Invested Monthly:</label>
+                <input type="number" id="Amount_invested_monthly" name="Amount_invested_monthly" value="250" step="any">
+            </div>
+            <div class="form-group">
+                <label for="Payment_Behaviour">Payment Behaviour:</label>
+                <select id="Payment_Behaviour" name="Payment_Behaviour">
+                    <option value="Low_spent_Small_value_payments">Low spent Small value payments</option>
+                    <option value="High_spent_Medium_value_payments">High spent Medium value payments</option>
+                    <option value="Low_spent_Medium_value_payments">Low spent Medium value payments</option>
+                    <option value="High_spent_Large_value_payments">High spent Large value payments</option>
+                    <option value="High_spent_Small_value_payments">High spent Small value payments</option>
+                    <option value="Low_spent_Large_value_payments">Low spent Large value payments</option>
+                    <option value="Medium_spent_Moderate_value_payments">Medium spent Moderate value payments</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Monthly_Balance">Monthly Balance:</label>
+                <input type="number" id="Monthly_Balance" name="Monthly_Balance" value="1200" step="any">
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                // Attempt to convert to number if possible, otherwise keep as string
+                data[key] = isNaN(Number(value)) ? value : Number(value);
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Predicting...';
+            resultDiv.className = 'result-box'; // Reset class
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.textContent = `Predicted Credit Score: ${result.predicted_credit_score}`;
+                    resultDiv.classList.add('success');
+                } else {
+                    resultDiv.textContent = `Error: ${result.message || 'Unknown error'}`;
+                    resultDiv.classList.add('error');
+                }
+            } catch (error) {
+                resultDiv.textContent = `Network Error: ${error.message}`;
+                resultDiv.classList.add('error');
+            }
+        });
+    </script>
+</body>
+</html>

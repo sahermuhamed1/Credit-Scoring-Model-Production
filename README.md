@@ -1,53 +1,119 @@
-# Credit Scoring Model Production
+# Credit Scoring Model - Production Inference API
 
-This project provides a machine learning solution for credit scoring, focusing on the deployment of tree-based models using Flask and FastAPI.
+A production-ready Flask API for credit scoring classification using a pre-trained Random Forest model.
 
-## Model Usage
+## Project Structure
 
-- **Tree Models**: The project utilizes tree-based algorithms (e.g., Decision Trees, Random Forests, Gradient Boosting) for predicting creditworthiness. These models are chosen for their interpretability and strong performance on tabular financial data.
+```
+├── app.py                  # Flask API entry point
+├── model/
+│   ├── __init__.py
+│   ├── preprocessing.py    # Data preprocessing functions
+│   └── prediction.py       # Model loading and prediction
+├── models/                 # Pretrained artifacts
+│   ├── rf_classifier_model.pkl
+│   ├── scaler.pkl
+│   ├── label_encoder.pkl
+│   ├── ordinal_encoder.pkl
+├── requirements.txt
+├── README.md
+└── dataset/
+    └── data/raw/          # Training data
+```
 
-## Evaluation Metrics
+## Quick Start
 
-- **Precision/Recall**: The model evaluation emphasizes both precision and recall. 
-  - **Precision** measures the proportion of predicted positives that are actually positive.
-  - **Recall** measures the proportion of actual positives that are correctly identified.
+### Installation
 
-## Business Context: Importance of False Negatives
+1. Clone the repository
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-- In loan approval, **False Negatives** (predicting a good applicant as bad) are critical. They represent lost business opportunities, as potentially creditworthy customers are denied loans. Minimizing false negatives is important to maximize revenue while managing risk.
+### Running the API
 
-## Credit Score Classification
+```bash
+python app.py
+```
 
-- The model classifies applicants into three categories:
-  - **Poor**: High risk of default.
-  - **Standard**: Moderate risk.
-  - **Good**: Low risk, likely to repay.
+The API will start on `http://127.0.0.1:5000`
 
-## Deployment
+## API Usage
 
-- The trained models are deployed as REST APIs using:
-  - **Flask**: For lightweight, quick deployments.
-  - **FastAPI**: For high-performance, asynchronous API serving.
+### Predict Credit Score
 
-Both frameworks allow integration with web or mobile applications for real-time credit scoring.
+**Endpoint:** `POST /predict`
 
-## Workflow
+**Content-Type:** `application/json`
 
-- **1. Load the dataset** : The dataset is loaded from a CSV file containing applicant data.
-- **2. Preprocess and clean the data**: The data is cleaned and transformed to ensure it is suitable for model training.
-- **3. Feature engineering for RFM**: Features are created based on Recency, Frequency, and Monetary value to enhance model performance.
-- **4. Train the model**: The model is trained using the processed data, focusing on minimizing false negatives.
-- **5. Evaluate the model**: The model is evaluated using precision and recall metrics to ensure it meets business requirements.
-- **6. Deploy the model**: The trained model is deployed as a REST API using Flask or FastAPI, allowing for easy integration with applications.
-- **7. Hyperparameter tuning**: The model is fine-tuned to optimize performance, focusing on reducing false negatives while maintaining a balance with precision and recall.
-- **8. Model inference**: The deployed API can be used to classify new applicants based on their data, providing real-time credit scoring.
-- **9. Model evaluation**: Continuous monitoring and evaluation of the model's performance in production to ensure it remains effective and accurate over time.
-- **10. Deployment**: The model is deployed in a production environment, ensuring it is accessible for real-time predictions.
-- **11. Explainability**: Use SHAP or LIME to interpret model decisions.
+**Example Request:**
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{
+       "Annual_Income": 50000,
+       "Num_Bank_Accounts": 2,
+       "Num_Credit_Card": 1,
+       "Interest_Rate": 15.5,
+       "Num_of_Loan": 1,
+       "Delay_from_due_date": 0,
+       "Num_of_Delayed_Payment": 0,
+       "Changed_Credit_Limit": 1000,
+       "Outstanding_Debt": 1500,
+       "Credit_Utilization_Ratio": 0.3,
+       "Monthly_EMI": 200,
+       "Credit_History_Age": "2 Years and 6 Months",
+       "Monthly_Inhand_Salary": 4000,
+       "Amount_invested_monthly": 500,
+       "Monthly_Balance": 1000
+     }' \
+     http://127.0.0.1:5000/predict
+```
 
-## Usage
+**Example Response:**
+```json
+{
+  "predicted_class": "Standard",
+  "probability": 0.85,
+  "all_probabilities": {
+    "Poor": 0.05,
+    "Standard": 0.85,
+    "Good": 0.10
+  }
+}
+```
 
-1. 
-2.
-3. 
+### Health Check
 
+**Endpoint:** `GET /health`
+
+Returns the API health status.
+
+## Features
+
+- **Preprocessing**: Handles missing values, outliers, and feature engineering
+- **Scaling**: Applies StandardScaler transformation
+- **Encoding**: Handles categorical variables with saved encoders
+- **Error Handling**: Validates input and provides meaningful error messages
+- **Logging**: Minimal logging for debugging
+
+## Model Information
+
+- **Algorithm**: Random Forest Classifier
+- **Classes**: Poor, Standard, Good
+- **Accuracy**: ~90% on test set
+- **Features**: 20 engineered features including RFM metrics
+
+## Development
+
+### Adding New Features
+
+1. Update `preprocessing.py` with new preprocessing steps
+2. Retrain the model and save new artifacts to `models/`
+3. Update API documentation
+
+### Testing
+
+Run the API locally and test with sample data:
+```bash
+python -m pytest tests/  # if tests are added
